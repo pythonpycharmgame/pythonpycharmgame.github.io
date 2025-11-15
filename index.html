@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温馨祝福</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+        }
+
+        .tip-window {
+            position: fixed;
+            width: 300px;
+            min-height: 100px;
+            background-color: lightpink;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .tip-content {
+            width: 100%;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .controls button:hover {
+            background: #0056b3;
+        }
+
+        .controls input {
+            margin: 5px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        const tips = [
+            '愿你三冬暖，春不寒，天黑有灯，下雨有伞，路上有良人相伴，一生被温柔以待。',
+            '愿你遍历山河，觉得人间值得，无论经历多少风雨，都能保持内心的澄澈与热爱。',
+            '愿你所求皆如愿，所行皆坦途，日子如熹光，温柔又明亮，每天都有小确幸相伴。',
+            '愿你被这个世界温柔以待，躲不过的惊吓都只是虚惊一场，收到的欢喜都恰如所期。',
+            '愿你往后余生，快乐是本能，幸福是常态，不为往事忧，只为余生笑，活得自在洒脱。',
+            '愿你有高跟鞋也有跑鞋，喝茶也喝酒，有勇敢的朋友，也有强大的对手，活出自己的精彩。',
+            '愿你眼中总有光芒，活成自己喜欢的模样，走过千山万水，归来仍是少年，初心不改。',
+            '愿你在迷茫时，坚信自己的珍贵，爱你所爱，行你所行，听从你心，无问西东，终会抵达。',
+            '愿你一生努力，一生被爱，想要的都拥有，得不到的都释怀，平安喜乐，顺遂无忧。',
+            '愿你如向日葵般，永远向阳而生，无论遇到什么困境，都能找到温暖的光芒与前行的力量。',
+            '愿你日子清净，抬头所见皆温柔，低头所行皆坦途，身边人平安喜乐，远方事顺遂无忧。',
+            '愿你历经世事而不失少年意趣，保持对生活的热忱与好奇，永远年轻，永远热泪盈眶。',
+            '愿你有能力爱自己，有余力爱别人，被世界温柔以待的同时，也能温柔地对待这个世界。',
+            '愿你在平凡的日子里，收获不平凡的感动，在平淡的生活中，品味出不平淡的幸福与甘甜。',
+            '愿你所到之处皆为热土，所遇之人皆为良善，所做之事皆能顺遂，所念之人平安喜乐。',
+            '愿你有足够的勇气面对所有挑战，有足够的智慧解决所有难题，有足够的幸运遇见所有美好。',
+            '愿你把日子过成诗，时而简单，时而精致，眼里有光，心中有爱，不负时光，不负自己。',
+            '愿你往后的每一步都走得坚定而从容，每一个选择都无怨无悔，每一段旅程都充实而有意义。',
+            '愿你拥有发现美的眼睛，感知温暖的心灵，在琐碎的日常中，总能找到藏起来的糖果与惊喜。',
+            '愿你一生被爱包围，被温暖呵护，既有随处可栖的江湖，也有追风逐梦的勇气与自由。',
+            '愿你不为打翻的牛奶哭泣，不为逝去的昨天烦恼，专注于当下的每一刻，活出真实的自己。',
+            '愿你在风雨中学会坚强，在挫折中学会成长，在黑暗中学会发光，成为自己的太阳。',
+            '愿你有说走就走的勇气，也有沉淀下来的耐心，既能朝九晚五，也能浪迹天涯，不负此生。',
+            '愿你所得皆所愿，所失亦无碍，失去的会以另一种方式归来，拥有的能加倍珍惜与善待。',
+            '愿你保持对生活的热爱，把每一天都过得热气腾腾，在平凡的岗位上，做出不平凡的成绩。',
+            '愿你心中有丘壑，眼底存山河，历经沧桑而不失纯真，看过世故仍保持善良与真诚。',
+            '愿你有不期而遇的温暖，和生生不息的希望，在漫长的岁月里，活成自己最想要的样子。',
+            '愿你无论多大，都能热爱童话、英雄和魔法，保持那份纯粹与天真，对抗世界的复杂。',
+            '愿你付出甘之如饴，所得归于欢喜，所有的努力都有回报，所有的等待都不被辜负。',
+            '愿你在薄情的世界里深情地活，在复杂的人群中简单地过，守住初心，方得始终。',
+            '愿你有健康的身体，乐观的心态，热爱的事业，相伴的爱人，把生活过成自己喜欢的模样。',
+            '愿你走过的弯路都成为风景，经历的风雨都化作彩虹，所有的坎坷都是通往幸福的铺垫。',
+            '愿你被生活温柔以待，也能温柔地对待生活，在柴米油盐中寻诗意，在平淡日常中找惊喜。',
+            '愿你拥有感知幸福的能力，即使是微小的美好也能被捕捉，让每一天都充满阳光与温暖。',
+            '愿你一生平安顺遂，喜乐无忧，不为琐事烦扰，不为未来焦虑，活在当下，享受此刻的宁静。'
+        ];
+
+        const bgColors = [
+            'lightpink', 'skyblue', 'lightgreen', 'lavender', 'lightyellow',
+            'plum', 'coral', 'bisque', 'aquamarine', 'mistyrose', 'honeydew',
+            'peachpuff', 'paleturquoise', 'lavenderblush', 'oldlace', 'lemonchiffon'
+        ];
+
+        let windows = [];
+
+        function createTipWindow() {
+            const windowElement = document.createElement('div');
+            windowElement.className = 'tip-window';
+            
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const windowWidth = 300;
+            const windowHeight = 100;
+            
+            const x = Math.floor(Math.random() * (screenWidth - windowWidth));
+            const y = Math.floor(Math.random() * (screenHeight - windowHeight));
+            
+            const tip = tips[Math.floor(Math.random() * tips.length)];
+            const bgColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+            
+            windowElement.style.left = x + 'px';
+            windowElement.style.top = y + 'px';
+            windowElement.style.backgroundColor = bgColor;
+            
+            const content = document.createElement('div');
+            content.className = 'tip-content';
+            content.textContent = tip;
+            windowElement.appendChild(content);
+            
+            document.body.appendChild(windowElement);
+            windows.push(windowElement);
+            
+            // 6秒后淡出并移除窗口
+            setTimeout(() => {
+                windowElement.style.animation = 'fadeOut 0.5s ease-out';
+                setTimeout(() => {
+                    if (windowElement.parentNode) {
+                        windowElement.parentNode.removeChild(windowElement);
+                        windows = windows.filter(w => w !== windowElement);
+                    }
+                }, 500);
+            }, 6000);
+        }
+
+        function startWindows(count = 99) {
+            // 清除现有窗口
+            clearAllWindows();
+            
+            // 创建新窗口 - 更平滑的弹出效果
+            let created = 0;
+            
+            function createWindow() {
+                if (created >= count) return;
+                
+                createTipWindow();
+                created++;
+                
+                // 随机间隔时间 125ms-333ms (大约每秒3-8个)
+                const interval = Math.floor(Math.random() * 208) + 125;
+                setTimeout(createWindow, interval);
+            }
+            
+            createWindow();
+        }
+
+        function clearAllWindows() {
+            windows.forEach(windowElement => {
+                if (windowElement.parentNode) {
+                    windowElement.parentNode.removeChild(windowElement);
+                }
+            });
+            windows = [];
+        }
+
+        // 页面加载完成后自动开始显示99个窗口
+        window.addEventListener('load', () => {
+            startWindows(99);
+        });
+    </script>
+</body>
+</html>
